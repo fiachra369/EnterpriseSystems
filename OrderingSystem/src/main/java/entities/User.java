@@ -22,20 +22,23 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String username;
-	private String password;
+	
 	
 	@OneToOne
-	private Profile profile;
+	private Address Address;
+	
 
 	public User() {
 
 	}
 
-	public User(String username, String password, Profile profile) {
+	public User(String username, Address Address) {
 		this.username = username;
-		this.password = password;
-		this.profile = profile;
+		this.Address = Address;
+		
 	}
+
+	
 
 	public int getId() {
 		return id;
@@ -53,20 +56,13 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+
+	public Address getAddress() {
+		return Address;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Profile getProfile() {
-		return profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+	public void setAddress(Address Address) {
+		this.Address = Address;
 	}
 	
 	

@@ -18,11 +18,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import dao.FoodDAO;
-import dao.ProfileDAO;
+import dao.PhoneNoDAO;
+import dao.AddressDAO;
 import dao.UserDAO;
 import dao.UserDAO;
 import entities.Food;
-import entities.Profile;
+import entities.PhoneNo;
+import entities.Address;
 import entities.User;
 
 
@@ -33,38 +35,18 @@ public class SampleService {
     
     private static ArrayList<String> order = new ArrayList<String>();
     public static Scanner input = new Scanner(System.in);
-    public static String again, name, email;
-    public static int choose,quantity=1, number;
+    public static String again, name, email, num, address;
+    public static int choose,quantity=1;
     public static double total=0,pay;
     
     static UserDAO uDAO = new UserDAO();
-	static ProfileDAO pDAO = new ProfileDAO();
+	static AddressDAO aDAO = new AddressDAO();
 	static FoodDAO fDAO = new FoodDAO();
+	static PhoneNoDAO pDAO = new PhoneNoDAO();
 	
     
   
     static {
-    	
-    	//Add Foods
-    			Food c1 = new Food("Jane was here");
-    			Food c2 = new Food("Jane loves NEtflix");
-    			Food c3 = new Food("Jane hates cats");
-    			fDAO.persist(c1);
-    			fDAO.persist(c2);
-    			fDAO.persist(c3);
-    			
-    			List<Food> Foods = new ArrayList<Food>();
-    			Foods.add(c1);
-    			Foods.add(c2);
-    			Foods.add(c3);
-    			//Add Profile
-    			Profile profile = new Profile("Jane's profile", Foods);
-    			pDAO.persist(profile);
-    			
-    			//Add User
-    			User User = new User("janedoe","secret", profile );
-    			uDAO.persist(User);
-    			
     	
     	
     }
@@ -78,16 +60,15 @@ public class SampleService {
 		//View all Users (here I've accessed all objects through the User)
 		ArrayList<User> Users = (ArrayList<User>) uDAO.getAllUsers();
 		for(User s : Users) {
-			System.out.println("User object username is "+s.getUsername());
-			System.out.println("User's Profile says "+ s.getProfile().getDescription());
-			//Note I've made an Eagar Fetch on the Foods List in Profile to enable this
-			System.out.println("User's profile's first Food is "+s.getProfile().getFoods().get(0).getContent());
+			System.out.println("Customers name is "+s.getUsername());
+			System.out.println("Customers address is "+ s.getAddress().getDescription());
+		
+			//Note I've made an Eagar Fetch on the Foods List in Address to enable this
+			System.out.println("Customers order is "+s.getAddress().getFoods().get(0).getContent());
 		}
-		
-		
-		//Get User by username, print their password
-		System.out.println(uDAO.getUserByUsername("janedoe24").getPassword());
+	
     	
+		
 		
 	}
     
@@ -101,16 +82,32 @@ public class SampleService {
     @Produces("text/plain")
     public static void menu(){
     	
+    	List<Food> Foods = new ArrayList<Food>();
+		List<PhoneNo> PhoneNo = new ArrayList<PhoneNo>();		
+    	
     	System.out.println("Welcome To Fiachras Takeaway ");
+    	
+    	System.out.println("What is your address ?");
+    	address = input.next();
     	
     	System.out.println("What is your name ?");
     	name = input.next();
     	
-    	System.out.println("What is your email ?");
-    	email = input.next();
-    	
     	System.out.println("What is your number ?");
-    	number = input.nextInt();
+    	num = input.next();
+    	
+    	Address Address = new Address(address, Foods);
+		aDAO.persist(Address);
+    	
+    	User User = new User(name, Address);
+    	uDAO.persist(User);
+    	
+    	PhoneNo no = new PhoneNo(num);
+		PhoneNo.add(no);
+		pDAO.persist(no);
+    	
+		
+		
     	
     	System.out.println("\t\t\t\t+===================================+");
         System.out.println("\t\t\t\t               MENU          ");
@@ -126,7 +123,9 @@ public class SampleService {
     	    choose = input.nextInt();
     	    //conditions
     	    if(choose==1){
-    	        System.out.println("You choose Chiken & Rice");
+    	        System.out.println("You chose Chiken & Rice");
+    	        Food c1 = new Food("Chicken & Rice");
+    	        fDAO.persist(c1);
     	        
     	        System.out.print("How many Tapsilog you want to Buy? :");
     	        quantity =input.nextInt();
@@ -146,11 +145,13 @@ public class SampleService {
     	            System.out.println("Total price is " + total);
     	            total = pay-total;
     	            System.out.println("The change is " + total);
-    	            order.add("Chicken & Rice");
+  
     	            }
     	        }
     	    }else if(choose==2){
-    	        System.out.println("You choose Noodles & Beef");
+    	        System.out.println("You chose Noodles & Beef");
+    	        Food c2 = new Food("Noodles & Beef");
+    	        fDAO.persist(c2);
     	        
     	        System.out.print("How many Tocilog you want to Buy? :");
     	        quantity =input.nextInt();
@@ -170,11 +171,12 @@ public class SampleService {
     	            System.out.println("Total price is " + total);
     	            total = pay-total;
     	            System.out.println("The change is " + total);
-    	            order.add("Noodles & Beef");
     	            }
     	        }
     	      }else if(choose==3){
-    	        System.out.println("You choose Pasta Bolognese");
+    	        System.out.println("You chose Pasta Bolognese");
+    	        Food c3 = new Food("Past Bolognese");
+    	        fDAO.persist(c3);
     	  
     	        System.out.print("How many Longsilog you want to Buy? :");
     	        quantity =input.nextInt();
@@ -194,7 +196,6 @@ public class SampleService {
     	            System.out.println("Total price is " + total);
     	            total = pay-total;
     	            System.out.println("The change is " + total);
-    	            order.add("Bolognese");
     	            }
     	        }
     	    }else if(choose==4){
@@ -203,7 +204,6 @@ public class SampleService {
     	        System.out.println("Choose 1 to 4 only!");
     	        menu();
     	    }
-    	    System.out.println(order);
     	    }
     
     

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Profile {
+public class Address {
 		
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,19 +22,19 @@ public class Profile {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Food> Foods = new ArrayList<Food>();
 	
-	public Profile() {
+	public Address() {
 
 	}
 
 	
-	public Profile(String description, List<Food> Foods) {
+	public Address(String description, List<Food> Foods) {
 		super();
 		this.description = description;
 		this.Foods = Foods;
 	}
 	
 	
-	public Profile(String description) {
+	public Address(String description) {
 		this.description = description;
 	}
 
