@@ -10,14 +10,13 @@ import javax.persistence.Persistence;
 import entities.User;
 
 public class UserDAO {
-	
-	protected static EntityManagerFactory emf = 
-			Persistence.createEntityManagerFactory("FiachrasPU"); 	
-	
+
+	protected static EntityManagerFactory emf = Persistence.createEntityManagerFactory("FiachrasPU");
+
 	public UserDAO() {
-		
+
 	}
-	
+
 	public void persist(User User) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -25,7 +24,7 @@ public class UserDAO {
 		em.getTransaction().commit();
 		em.close();
 	}
-	
+
 	public void remove(User User) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -33,7 +32,7 @@ public class UserDAO {
 		em.getTransaction().commit();
 		em.close();
 	}
-	
+
 	public User merge(User User) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -42,8 +41,7 @@ public class UserDAO {
 		em.close();
 		return updatedUser;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
 		EntityManager em = emf.createEntityManager();
@@ -54,18 +52,17 @@ public class UserDAO {
 		em.close();
 		return UsersFromDB;
 	}
-	
-	public User getUserByUsername(String username){
+
+	public User getUserByUsername(String username) {
 		EntityManager em = emf.createEntityManager();
 		@SuppressWarnings("unchecked")
-		List<User> Users = (List<User>) 
-				em.createNamedQuery("User.findByUsername").
-				setParameter("username", username).getResultList();
+		List<User> Users = (List<User>) em.createNamedQuery("User.findByUsername").setParameter("username", username)
+				.getResultList();
 		em.close();
-		//Do whatever you want with the User(s) with that username
-		//Here we just return the first one
+		// Do whatever you want with the User(s) with that username
+		// Here we just return the first one
 		User sub = new User();
-		for(User s: Users) {
+		for (User s : Users) {
 			sub = s;
 		}
 		return sub;

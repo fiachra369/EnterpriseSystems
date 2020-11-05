@@ -5,24 +5,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>REST Example</title>
+<title>Food Ordering System</title>
 </head>
 <body>
-	<form action= "http://localhost:8080/resteasy/restful-services/sampleservice/CreateUser" method="GET">
-        
-        
-        <input type="submit" value="Create User">
-    </form>
+	
     <form action= "http://localhost:8080/resteasy/restful-services/sampleservice/AddToOrder" method="GET">
         
         
-        <input type="submit" value="Create Your Order">
+        <input type="submit" value="Order Food">
     </form>
     
-    <form action= "http://localhost:8080/resteasy/restful-services/sampleservice/ViewOrder" method="GET">
+    <form action= "http://localhost:8080/resteasy/restful-services/sampleservice/DeliveryInfo" method="GET">
         
         
-        <input type="submit" value="View Order">
+        <input type="submit" value="Delivery Information">
+    </form>
+    
+    <form action= "http://localhost:8080/resteasy/restful-services/sampleservice/MarketingInfo" method="GET">
+        
+        
+        <input type="submit" value="Marketing Information">
     </form>
 	
 	  

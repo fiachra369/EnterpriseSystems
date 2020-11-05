@@ -7,13 +7,13 @@ import javax.persistence.Id;
 
 @Entity
 public class Food {
-		
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String content;
-	
+
 	public Food() {
 
 	}
@@ -37,9 +37,5 @@ public class Food {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	
-	
-	
 
 }

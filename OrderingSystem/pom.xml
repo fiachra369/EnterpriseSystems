@@ -2,13 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
  
-  <groupId>com.javacodegeeks</groupId>
+  <groupId>main</groupId>
   <artifactId>resteasy</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
- 
-  <name>resteasy JEE5 Webapp</name>
-  <url>http://maven.apache.org</url>
    
   <repositories>
     <repository>
@@ -39,7 +36,7 @@
             <version>5.1.46</version>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+        
 <dependency>
     <groupId>javax.persistence</groupId>
     <artifactId>javax.persistence-api</artifactId>
